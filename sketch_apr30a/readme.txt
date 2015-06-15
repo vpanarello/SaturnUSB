@@ -1,3 +1,2 @@
 
-
-Code for 2 controllers
+Code for use of 2 Sega Saturn Controller
