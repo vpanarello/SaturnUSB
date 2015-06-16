@@ -1,7 +1,7 @@
 /*
 *  Classic VideoGame Controller interface to USB
 *  Original code by Vagner Panarello, 27th April 2015
-*  Modified 30th April 2015 by Vagner Panarello for Suport Sega Saturn Controller
+*  Modified 28th April 2015 by Vagner Panarello for Suport ONE Sega Saturn Controller
 *
 *
 *
@@ -20,7 +20,7 @@
 
 */
 
-#include <TimerOne.h> // Arduino Timer 1 control Library is required
+#include <TimerOne.h>
 
 // Address for controllers and External multiplexers
 // Usually the S2 and S3 belong for internal controllers addressament and S1 and S0 choose 1 of 4 controllers to scan in time.
@@ -32,19 +32,13 @@
 
 // Input pins for controller 1
 
-#define Y0_1 1
-#define Y1_1 0
-#define Y2_1 2
-#define Y3_1 3
-
-// Input pins for controller 2
-
-#define Y0_2 8
-#define Y1_2 14
-#define Y2_2 16
-#define Y3_2 15
+#define Y0 1
+#define Y1 0
+#define Y2 2
+#define Y3 3
 
 #define scanFrequency 976 //976 // 512 Hz - 128 Hz per controller
+
 #define maxEndereco 15
 
 // ===============================================
@@ -53,7 +47,7 @@ uint8_t  endereco = 0;
 uint8_t  controle = 0;
 uint8_t  multiplex = 0;
 
-uint8_t keysSample[4];
+
 uint8_t controllerMapping[4][4];
 
 // ===============================================
@@ -71,30 +65,26 @@ void changeMuxSeletor(void) {
 
 void scanKeys(void) {
   
-         
-          keysSample[0] = ~PIND & B00001111;         // Controller 1 scan
-          keysSample[1] = (~PINB & B00011111) >> 1;  // Controller 2 scan
-          keysSample[2] = 0;                         // Controller 3 NOT allocaded
-          keysSample[3] = 0;                         // Controller 3 NOT allocaded
+          uint8_t keysSample = ~PIND & B00001111;
          
           if (multiplex == 0)
               {
-                controllerMapping[controle][0] |= (keysSample[controle] << 4);
-                controllerMapping[controle][0] &= ((keysSample[controle] << 4) | B00001111);
+                controllerMapping[controle][0] |= (keysSample << 4);
+                controllerMapping[controle][0] &= ((keysSample << 4) | B00001111);
               
               }
           else if (multiplex == 1) 
               {
-                controllerMapping[controle][0] |= keysSample[controle] ;
-                controllerMapping[controle][0] &= (keysSample[controle] | B11110000) ;
+                controllerMapping[controle][0] |= keysSample ;
+                controllerMapping[controle][0] &= (keysSample | B11110000) ;
               
               }
           else if (multiplex == 2)
               {  
-                boolean esquerda = (keysSample[controle] & B00000001);
-                boolean baixo = (keysSample[controle] & B00000010) >> 1;
-                boolean direita = (keysSample[controle] & B00000100) >> 2;
-                boolean cima = (keysSample[controle] & B00001000) >> 3;
+                boolean esquerda = (keysSample & B00000001);
+                boolean baixo = (keysSample & B00000010) >> 1;
+                boolean direita = (keysSample & B00000100) >> 2;
+                boolean cima = (keysSample & B00001000) >> 3;
                 
                 if (cima) {
                     controllerMapping[controle][2] = 1;
@@ -119,7 +109,7 @@ void scanKeys(void) {
               }
           else if (multiplex == 3)
               {
-                    controllerMapping[controle][1] = (keysSample[controle] >> 3) & B00000001;
+                    controllerMapping[controle][1] = (keysSample >> 3) & B00000001;
               }
 }
     
@@ -127,18 +117,12 @@ void scanKeys(void) {
     
           
 void printKeyPad(void) {
-      Serial.println("Controle 1");
-      for (byte i = 0; i < 4; i++) {
-              Serial.println(controllerMapping[0][i],BIN);
-            }
       Serial.println("");
-      
-      Serial.println("Controle 2");
       for (byte i = 0; i < 4; i++) {
-              Serial.println(controllerMapping[1][i],BIN);
-            }
+        Serial.println(controllerMapping[0][i],BIN);
+      }
       Serial.println("");
-}
+}          
 
 
 void pulse(void) {        
@@ -154,32 +138,19 @@ void pulse(void) {
 
 void setup() {
   
-  // Config pins for Addresses outputs
   pinMode(S0, OUTPUT);
   pinMode(S1, OUTPUT);
   pinMode(S2, OUTPUT);
   pinMode(S3, OUTPUT);
   
-  // Config pins for controller 1
-  pinMode(Y0_1, INPUT_PULLUP);
-  pinMode(Y1_1, INPUT_PULLUP);
-  pinMode(Y2_1, INPUT_PULLUP);
-  pinMode(Y3_1, INPUT_PULLUP);
-  digitalWrite(Y0_1, HIGH);
-  digitalWrite(Y1_1, HIGH);
-  digitalWrite(Y2_1, HIGH);
-  digitalWrite(Y3_1, HIGH);
-  
-  // Config pins for controller 2
-  pinMode(Y0_2, INPUT_PULLUP);
-  pinMode(Y1_2, INPUT_PULLUP);
-  pinMode(Y2_2, INPUT_PULLUP);
-  pinMode(Y3_2, INPUT_PULLUP);
-  digitalWrite(Y0_2, HIGH);
-  digitalWrite(Y1_2, HIGH);
-  digitalWrite(Y2_2, HIGH);
-  digitalWrite(Y3_2, HIGH);
-  
+  pinMode(Y0, INPUT_PULLUP);
+  pinMode(Y1, INPUT_PULLUP);
+  pinMode(Y2, INPUT_PULLUP);
+  pinMode(Y3, INPUT_PULLUP);
+  digitalWrite(Y0, HIGH);
+  digitalWrite(Y1, HIGH);
+  digitalWrite(Y2, HIGH);
+  digitalWrite(Y3, HIGH);
   
   Timer1.initialize(scanFrequency);
   Timer1.attachInterrupt(pulse); // call timing controller scanner routines
@@ -188,15 +159,8 @@ void setup() {
   Gamepad.begin();
 }
 
-
-
-
-
-
 void loop() {
-   delay(50);
-    printKeyPad();
-    Gamepad.sendData(controllerMapping[0], 3);
-    delay(50);
-    Gamepad.sendData(controllerMapping[1], 4);
+   delay(100);
+   // printKeyPad();
+   Gamepad.sendData(controllerMapping[0]);
 }
