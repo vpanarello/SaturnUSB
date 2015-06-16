@@ -2,10 +2,10 @@
 Interface de controles de Sega Saturn para USB Sega Saturn to USB controller Interface
 Ver. 1.01 - 28/04/2015
 
-(c) Vagner Panarello
+Programmer: Vagner Panarello (c)
 */
 
-#include <TimerOne.h>
+#include <TimerOne.h> // Arduino Timer 1 control Library is required
 
 // Address for controllers and External multiplexers
 // Usually the S2 and S3 belong for internal controllers addressament and S1 and S0 choose 1 of 4 controllers to scan in time.
