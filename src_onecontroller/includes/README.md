@@ -1,9 +1,12 @@
 Instruction to update "USBAPI.h" and "HID.cpp" files. 
 ==
 
-The follow steps are necessary to implement new descriptors for the USB Gamepad device, Arduino IDE has no native descriptors or libraries for Leonardo that recognises as Joystick USB device such Keyboards or Mouse devices.
+The follow steps are necessary to implement new descriptors for the USB Gamepad device, Arduino IDE has no native descriptors or libraries for Leonardo that recognises as Joystick USB device unlike of Keyboards or Mouse devices that you have not to implement extra codes to use them.
 
-You have do include the follow pieces of code like specified in the steps. Pay attention to maintain the original codes of file just adding the new pieces of code at the file. Is strongly recommended to make copies from original files before modifying. If some compilation problem occurred after editing the files, you can easily restore de original ones and solve the problem.
+You have do include the follow pieces of code like specified in the steps. Pay attention to maintain the original codes of file just adding the new pieces of code at the file. Is strongly recommended make copies from original files before modifying. If some compilation problem occurred after editing the files, you can easily restore de original ones and solve the problem.
+
+Search the two files inside the Arduino IDE installation folder at this path:
+"Arduino\hardware\arduino\avr\cores\arduino"
 
 ### File "HID.cpp"
 
