@@ -1,15 +1,15 @@
-### The follow piece of codes have do be included in the included inside the files "USBAPI.h" and "HID.cpp". 
+The follow piece of codes have do be included inside "USBAPI.h" and "HID.cpp" files. 
+==
 
 
-* HID.cpp
+### File "HID.cpp"
 
 
-Add this header to the file approximately in the line 30
+1) Add this header to the file (approximately in the line 30)
 		
 		// Gamepad 1
 		
-
-Now, add the descriptor of the report of the Joystick device
+2) Add the descriptor of the report of the Joystick device inside the vector "const u8 _hidReportDescriptor[]" (approximately in the line 47)
 		
 		0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
 		0x09, 0x05,                    // USAGE (Game Pad)
@@ -42,4 +42,4 @@ Now, add the descriptor of the report of the Joystick device
 	
 	
 	
-	* USBAPI.h
+### File "USBAPI.h"
