@@ -113,11 +113,17 @@ Search the two files inside the Arduino IDE installation folder at this path:
 
 The method "void sendData(uint8_t b[4], uint8_t reportID)" allow your Arduino to send a packet stored as a vector to the USB Joystick device.
 
-The vector NEED to be 4 bytes exact sized such as described in the USB descriptor in the file "HID.cpp"
+The vector, first method argument named "b[4]", NEED to be 4 bytes exact sized such as described in the USB descriptor in the file "HID.cpp"
 
-The bytes structure of this report and the bits mapping are shown below
+The bytes structure of this report and the bits mapping, for a Sega Saturn controller, are shown below:
 
 		byte 0 | R | Y | X | Z | start | C | A |
 		byte 1 |   |   |   | R |       |   |   |
 		byte 2 |     		 X axis            | -> This value vary from 0 to 255 in 8 bits word 
 		byte 3 |	         Y axis            | -> This value vary from 0 to 255 in 8 bits word 
+		
+		
+Is there possibility to add more keys and more axis if you want change the project to attaching a more elaborate controller, but to do this, you need first of all build a new HID USB descriptor that fit with a bigger "report vector" with more bytes of data.
+
+To fit with all the Sega Saturn controller keys and functions, 4 bytes is more than enough.
+
