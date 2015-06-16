@@ -1,7 +1,7 @@
 /*
 *  Classic VideoGame Controller interface to USB
-*  Original code by Vagner Panarello, April 2015
-*  Modified April 2015 by Vagner Panarello for Suport Sega Saturn Controller
+*  Original code by Vagner Panarello, 27th April 2015
+*  Modified 30th April 2015 by Vagner Panarello for Suport Sega Saturn Controller
 *
 *
 *
