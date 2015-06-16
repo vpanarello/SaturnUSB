@@ -41,7 +41,7 @@ The follow piece of codes have do be included inside "USBAPI.h" and "HID.cpp" fi
 		
 		
 		
-3) Last add the class "Gamepad", this class has the methods that send the reports (packet of bytes) of controllers data. We will use only the  "sendData()" method on this class.
+3) Last add the class "Gamepad", this class has the methods that send the reports (packet of bytes) of controllers data. We will use only the  "sendData()" method on this class. (approximately in the line 579)
 		
 		
 		// Gamepad
