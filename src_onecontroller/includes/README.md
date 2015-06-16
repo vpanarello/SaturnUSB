@@ -91,6 +91,7 @@ Search the two files inside the Arduino IDE installation folder at this path:
 	
 ### File "USBAPI.h"
 
+1) Add this header to the file "USBAPI.h" (approximately in the line 190)
 
 		class Gamepad_
 				{
@@ -106,3 +107,17 @@ Search the two files inside the Arduino IDE installation folder at this path:
 					 bool isPressed(uint8_t b);
 				};
 		extern Gamepad_ Gamepad;
+		
+		
+### Calling the Gamepad Method from your Arduino Sketch
+
+The method "void sendData(uint8_t b[4], uint8_t reportID)" allow your Arduino to send a packet stored as a vector to the USB Joystick device.
+
+The vector NEED to be 4 bytes exact sized such as described in the USB descriptor in the file "HID.cpp"
+
+The bytes structure of this report and the bits mapping are shown below
+
+		byte 0 | R | Y | X | Z | start | C | A |
+		byte 1 |   |   |   | R |       |   |   |
+		byte 2 |     		 X axis            | -> This value vary from 0 to 255 in 8 bits word 
+		byte 3 |	         Y axis            | -> This value vary from 0 to 255 in 8 bits word 
