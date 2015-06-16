@@ -36,7 +36,50 @@ The follow piece of codes have do be included inside "USBAPI.h" and "HID.cpp" fi
 		0x75, 0x08,                    //     REPORT_SIZE (8)
 		0x81, 0x02,                    //     INPUT (Data,Var,Abs)
 		0xc0,                          //   END_COLLECTION
-		0xc0,                         // END_COLLECTION    
+		0xc0,                         // END_COLLECTION 
+		
+		
+		
+		
+3) Last add the class "Gamepad", this class has the methods that send the reports (packet of bytes) of controllers data. We will use only the  "sendData()" method on this class.
+		
+		
+		// Gamepad
+
+		Gamepad_::Gamepad_(void) : _buttons(0)
+				{
+				}
+
+		void Gamepad_::begin(void)
+				{
+				}
+
+		void Gamepad_::end(void)
+				{
+				}
+		void Gamepad_::sendData(uint8_t b[4], uint8_t reportID)
+				{
+					
+				 HID_SendReport(reportID, b, 4);
+				}
+		void Gamepad_::press(uint8_t b)
+				{
+				 _buttons |= b;
+				 HID_SendReport(3,&_buttons,1);
+				}
+
+		void Gamepad_::release(uint8_t b)
+				{
+				 _buttons &= ~b;
+				 HID_SendReport(3,&_buttons,1);
+				}
+
+		bool Gamepad_::isPressed(uint8_t b)
+				{
+				 if ((b & _buttons) > 0) 
+					return true;
+				 return false;
+		}
 	
 	
 	
