@@ -1,8 +1,8 @@
-/*
-*  Classic VideoGame Controller interface to USB
-*  Original code by Vagner Panarello, 27th April 2015
-*  Modified 28th April 2015 by Vagner Panarello for Suport ONE Sega Saturn Controller
+/* Copyright (c) 2015, Vagner Panarello
 *
+*  Classic VideoGame Controller interface to USB
+*
+*  Modified 28th April 2015 by Vagner Panarello for Suport ONE Sega Saturn Controller
 *
 *
 *  This program is free software: you can redistribute it and/or modify
@@ -16,8 +16,7 @@
 *	GNU General Public License for more details.
 *
 *	You should have received a copy of the GNU General Public License
-*	along with this program.  If not, see <http://www.gnu.org/license
-
+*	along with this program.  If not, see <http://www.gnu.org/license>
 */
 
 #include <TimerOne.h>
