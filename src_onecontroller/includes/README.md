@@ -89,6 +89,20 @@ Search the two files inside the Arduino IDE installation folder at this path:
 	
 	
 	
-	
-	
 ### File "USBAPI.h"
+
+
+		class Gamepad_
+				{
+				private:
+					uint8_t _buttons;
+				public:
+					 Gamepad_(void);
+					 void begin(void);
+					 void end(void);
+					 void sendData(uint8_t b[4], uint8_t reportID);
+					 void press(uint8_t b);
+					 void release(uint8_t b);
+					 bool isPressed(uint8_t b);
+				};
+		extern Gamepad_ Gamepad;
